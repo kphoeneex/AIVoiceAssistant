@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #121212;
+  color: white;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #121212;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: opacity 1s ease;
+}
+
+.overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.overlay p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #aaa;
+}
+
+.btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background: #00bcd4;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #008ba3;
+}
+
+.main-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: url('Pics/bg.jpg') center/cover no-repeat;
+  z-index: 1;
+}
+
+.mic-button {
+  background: rgb(114, 165, 202);
+  border: 1px solid white;
+  border-radius: 100%;
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0px 0px 10px rgba(36, 123, 150, 0.822);
+  transform: scale(1.9);
+}
+
+.mic-button:active {
+  transform: scale(1.7);
+  box-shadow: 0 0px 10px rgb(251, 251, 251);
+}
+
+
+.mic-button:hover {
+  background: rgba(20, 101, 125, 0.899);
+}
+
+.mic-button img {
+  width: 60px;
+  height: 60px;
+}
+
+#status {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  color: #00e676;
+}
