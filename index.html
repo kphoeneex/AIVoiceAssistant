@@ -2,83 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AI Voice Assistant</title>
+  <title>Voice Recorder App</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
 
   <!-- Intro Screen -->
   <div class="overlay" id="intro">
     <h1>Welcome</h1>
-    <p>Press the button and speak your query. Release it once the query ends.</p>
+    <p>Your voice-based assistant starts here</p>
     <button class="btn" onclick="startApp()">Get Started</button>
   </div>
 
   <!-- Main Content -->
   <div class="main-content">
-    <div class="mic-button" onclick="startRecording()">
+    <div class="mic-button"
+     onmousedown="startMic()" 
+     onmouseup="stopMic()"
+     ontouchstart="startMic()" 
+     ontouchend="stopMic()">
       <img src="Pics/miic.png" alt="Mic Icon">
     </div>
   </div>
 
   <div id="status"></div>
-
-  <script>
-let mediaRecorder;
-let audioChunks = [];
-
-const micBtn = document.getElementById("micButton");
-const status = document.getElementById("status");
-
-// Start recording
-micBtn.addEventListener("mousedown", async () => {
-  status.textContent = "🎙️ Recording...";
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
-  mediaRecorder = new MediaRecorder(stream);
-  audioChunks = [];
-
-  mediaRecorder.ondataavailable = event => {
-    if (event.data.size > 0) {
-      audioChunks.push(event.data);
-    }
-  };
-
-  mediaRecorder.onstop = () => {
-    const blob = new Blob(audioChunks, { type: 'audio/webm' });
-    uploadToColab(blob);
-    stream.getTracks().forEach(track => track.stop());
-  };
-
-  mediaRecorder.start();
-});
-
-// Stop recording + upload on release
-micBtn.addEventListener("mouseup", () => {
-  status.textContent = "⏹️ Stopped. Uploading...";
-  mediaRecorder.stop();
-});
-
-// Upload blob to Colab
-function uploadToColab(blob) {
-  const formData = new FormData();
-  formData.append('audio', blob, 'voice.webm');
-
-  fetch('https://abc123.ngrok.io/upload', { // Replace with your ngrok URL
-    method: 'POST',
-    body: formData
-  })
-  .then(response => response.text())
-  .then(result => {
-    status.textContent = "✅ Sent to Colab!";
-    console.log("Success:", result);
-  })
-  .catch(error => {
-    status.textContent = "❌ Upload failed.";
-    console.error("Error:", error);
-  });
-}
-</script>
 
 </body>
 </html>
