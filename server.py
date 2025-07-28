@@ -11,9 +11,9 @@ from flask_cors import CORS
 model = whisper.load_model("small")
 
 app = Flask(__name__)
-CORS(app)  # Allow cross-origin access for local frontend
+CORS(app)  
 
-# Process audio + reply
+
 @app.route('/process', methods=['POST'])
 def process_audio():
     if 'audio' not in request.files:
@@ -48,7 +48,7 @@ def process_audio():
         "reply_audio_url": f"/audio/{os.path.basename(reply_audio.name)}"
     })
 
-# Serve audio file
+
 @app.route('/audio/<filename>')
 def serve_audio(filename):
     return send_file(os.path.join(tempfile.gettempdir(), filename), mimetype="audio/mpeg")
